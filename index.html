@@ -39,7 +39,7 @@
 <script>
     let compMovee = compMove();
     function print(picked){
-        alert('Computer played '+compMovee+'. You played '+picked+'. You '+result(picked));
+        alert('Computer played '+compMovee+'. You played '+picked+'. '+result(picked));
     }
     function result(whatYouPicked) {
         if(compMovee==='rock' && whatYouPicked==='rock' || compMovee==='paper' && whatYouPicked==='paper' || compMovee==='scissors' && whatYouPicked==='scissors'){
