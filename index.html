@@ -7,10 +7,9 @@
         div {
             display: flex;
             justify-content: space-around;
-            margin-top: -10px;
-            margin-left: -10px;
-            margin-right: -10px;
-            width: auto;
+            margin-top: -20px;
+            margin-left: -20px;
+            width: 1548px;
         }
 
         button {
@@ -36,18 +35,29 @@
     <button onclick=" print('paper'); ">PAPER</button>
 
     <button onclick=" print('scissors'); ">SCISSORS</button>
+
+    <button onclick="score.wins = score.loses = score.ties = 0;">RESET SCORE</button>
 </div>
 <script>
+    const score = {
+        wins: 0,
+        loses: 0,
+        ties: 0
+    };
     let compMovee = compMove();
     function print(picked){
-        alert('Computer played '+compMovee+'. You played '+picked+'. '+result(picked));
+        alert('Computer played '+compMovee+'. You played '+picked+'. You '+result(picked) + '\n'
+            + 'Wins: '+score.wins+ ', Loses: '+score.loses+ ', Ties: '+score.ties);
     }
     function result(whatYouPicked) {
         if(compMovee==='rock' && whatYouPicked==='rock' || compMovee==='paper' && whatYouPicked==='paper' || compMovee==='scissors' && whatYouPicked==='scissors'){
+            score.ties++;
             return 'TIE!';
         }else if(compMovee==='rock' && whatYouPicked==='paper' || compMovee==='paper' && whatYouPicked==='scissors' || compMovee==='scissors' && whatYouPicked==='rock'){
+            score.wins++;
             return 'WIN!';
         }else if(compMovee==='rock' && whatYouPicked==='scissors' || compMovee==='paper' && whatYouPicked==='rock' || compMovee==='scissors' && whatYouPicked==='paper'){
+            score.loses++;
             return 'LOSE!';
         }
     }
