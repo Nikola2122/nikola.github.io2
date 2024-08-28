@@ -36,20 +36,31 @@
 
     <button onclick=" print('scissors'); ">SCISSORS</button>
 
-    <button onclick="score.wins = score.loses = score.ties = score.total = 0;">RESET SCORE</button>
+    <button onclick="score.wins = score.loses = score.ties = score.total = 0
+    localStorage.removeItem('score');">RESET SCORE</button>
 </div>
 <script>
-    const score = {
+    let score = {
         wins: 0,
         loses: 0,
         ties: 0,
         total: 0
-    };
+    }
+    score = JSON.parse(localStorage.getItem('score'));
+    if(score === null){
+        score = {
+            wins: 0,
+            loses: 0,
+            ties: 0,
+            total: 0
+        }
+    }
     function print(picked){
         let compMovee = compMove();
         alert('Computer played '+compMovee+'. You played '+picked+'. '+result(picked,compMovee) + '\n'
             + 'Wins: '+score.wins+ ', Losses: '+score.loses+ ', Ties: '+score.ties + '\n'
             + 'WIN: '+Math.round(score.wins/score.total * 100)+ '% LOSE: '+Math.round(score.loses/score.total *100)+ '%');
+        localStorage.setItem('score',JSON.stringify(score));
     }
     function result(whatYouPicked,compMovee) {
         if(compMovee==='rock' && whatYouPicked==='rock' || compMovee==='paper' && whatYouPicked==='paper' || compMovee==='scissors' && whatYouPicked==='scissors'){
