@@ -19,7 +19,7 @@
             height: 100px;
             font-size: 20px;
             font-weight: bold;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
         }
 
         button:hover {
@@ -36,28 +36,32 @@
 
     <button onclick=" print('scissors'); ">SCISSORS</button>
 
-    <button onclick="score.wins = score.loses = score.ties = 0;">RESET SCORE</button>
+    <button onclick="score.wins = score.loses = score.ties = score.total = 0;">RESET SCORE</button>
 </div>
 <script>
     const score = {
         wins: 0,
         loses: 0,
-        ties: 0 
+        ties: 0,
+        total: 0
     };
-    let compMovee = compMove();
     function print(picked){
-        alert('Computer played '+compMovee+'. You played '+picked+'. You '+result(picked) + '\n'
-        + 'Wins: '+score.wins+ ', Loses: '+score.loses+ ', Ties: '+score.ties);
+        let compMovee = compMove();
+        alert('Computer played '+compMovee+'. You played '+picked+'. '+result(picked,compMovee) + '\n'
+            + 'Wins: '+score.wins+ ', Losses: '+score.loses+ ', Ties: '+score.ties + '\n'
+            + 'WIN: '+Math.round(score.wins/score.total * 100)+ '% LOSE: '+Math.round(score.loses/score.total *100)+ '%');
     }
-    function result(whatYouPicked) {
+    function result(whatYouPicked,compMovee) {
         if(compMovee==='rock' && whatYouPicked==='rock' || compMovee==='paper' && whatYouPicked==='paper' || compMovee==='scissors' && whatYouPicked==='scissors'){
             score.ties++;
             return 'TIE!';
         }else if(compMovee==='rock' && whatYouPicked==='paper' || compMovee==='paper' && whatYouPicked==='scissors' || compMovee==='scissors' && whatYouPicked==='rock'){
             score.wins++;
+            score.total++;
             return 'WIN!';
         }else if(compMovee==='rock' && whatYouPicked==='scissors' || compMovee==='paper' && whatYouPicked==='rock' || compMovee==='scissors' && whatYouPicked==='paper'){
             score.loses++;
+            score.total++;
             return 'LOSE!';
         }
     }
