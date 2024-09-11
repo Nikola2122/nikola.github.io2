@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rock Paper Scissors</title>
+    <title>Rock Paper Scissors DOM</title>
     <style>
         div {
             display: flex;
@@ -22,22 +22,49 @@
             font-family: Arial, sans-serif;
         }
 
+        .JScore {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            height: 50px;
+            background-color: deepskyblue;
+            padding-top: 30px;
+            padding-bottom: 10px;
+        }
+
+        .JResult {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: deepskyblue;
+        }
+
         button:hover {
             cursor: pointer;
             background-color: #006480;
         }
+
     </style>
 </head>
 <body>
 <div>
-    <button onclick=" print('rock'); ">ROCK</button>
+    <button onclick=" print('rock'); editS(); ">ROCK</button>
 
-    <button onclick=" print('paper'); ">PAPER</button>
+    <button onclick=" print('paper'); editS(); ">PAPER</button>
 
-    <button onclick=" print('scissors'); ">SCISSORS</button>
+    <button onclick=" print('scissors'); editS(); ">SCISSORS</button>
 
     <button onclick="score.wins = score.loses = score.ties = score.total = 0
-    localStorage.removeItem('score');">RESET SCORE</button>
+    localStorage.removeItem('score'); editS();">RESET SCORE
+    </button>
+</div>
+<div class="JScore">
+
+</div>
+<div class="JResult">
+
 </div>
 <script>
     let score = {
@@ -47,7 +74,7 @@
         total: 0
     }
     score = JSON.parse(localStorage.getItem('score'));
-    if(score === null){
+    if (score === null) {
         score = {
             wins: 0,
             loses: 0,
@@ -55,27 +82,39 @@
             total: 0
         }
     }
-    function print(picked){
-        let compMovee = compMove();
-        alert('Computer played '+compMovee+'. You played '+picked+'. '+result(picked,compMovee) + '\n'
-            + 'Wins: '+score.wins+ ', Losses: '+score.loses+ ', Ties: '+score.ties + '\n'
-            + 'WIN: '+Math.round(score.wins/score.total * 100)+ '% LOSE: '+Math.round(score.loses/score.total *100)+ '%');
-        localStorage.setItem('score',JSON.stringify(score));
+    editS();
+
+    function editS() {
+        if (score.total !== 0) {
+            document.querySelector('.JScore').innerHTML = 'Wins: ' + score.wins + ', Losses: ' + score.loses + ', Ties: ' + score.ties + '\n'
+                + 'WIN: ' + Math.round(score.wins / score.total * 100) + '% LOSE: ' + Math.round(score.loses / score.total * 100) + '%'
+        } else {
+            document.querySelector('.JScore').innerHTML = 'Wins: ' + score.wins + ', Losses: ' + score.loses + ', Ties: ' + score.ties + '\n'
+                + 'WIN: 0' + '% LOSE: 0' + '%'
+        }
     }
-    function result(whatYouPicked,compMovee) {
-        if(compMovee==='rock' && whatYouPicked==='rock' || compMovee==='paper' && whatYouPicked==='paper' || compMovee==='scissors' && whatYouPicked==='scissors'){
+
+    function print(picked) {
+        let compMovee = compMove();
+        document.querySelector('.JResult').innerHTML = 'Computer played ' + compMovee + '. You played ' + picked + '. ' + result(picked, compMovee);
+        localStorage.setItem('score', JSON.stringify(score));
+    }
+
+    function result(whatYouPicked, compMovee) {
+        if (compMovee === 'rock' && whatYouPicked === 'rock' || compMovee === 'paper' && whatYouPicked === 'paper' || compMovee === 'scissors' && whatYouPicked === 'scissors') {
             score.ties++;
             return 'TIE!';
-        }else if(compMovee==='rock' && whatYouPicked==='paper' || compMovee==='paper' && whatYouPicked==='scissors' || compMovee==='scissors' && whatYouPicked==='rock'){
+        } else if (compMovee === 'rock' && whatYouPicked === 'paper' || compMovee === 'paper' && whatYouPicked === 'scissors' || compMovee === 'scissors' && whatYouPicked === 'rock') {
             score.wins++;
             score.total++;
             return 'WIN!';
-        }else if(compMovee==='rock' && whatYouPicked==='scissors' || compMovee==='paper' && whatYouPicked==='rock' || compMovee==='scissors' && whatYouPicked==='paper'){
+        } else if (compMovee === 'rock' && whatYouPicked === 'scissors' || compMovee === 'paper' && whatYouPicked === 'rock' || compMovee === 'scissors' && whatYouPicked === 'paper') {
             score.loses++;
             score.total++;
             return 'LOSE!';
         }
     }
+
     function compMove() {
         const ranNum = Math.random()
         if (ranNum >= 0 && ranNum < 1 / 3) {
