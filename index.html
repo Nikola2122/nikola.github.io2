@@ -109,48 +109,8 @@
 
     function print(picked) {
         let compMovee = compMove();
-        if(compMovee === 'rock'){
-            if(picked === 'rock'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
-            }
-            else if(picked === 'paper'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
-            }
-            else {
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
-            }
-        }
-        else if(compMovee === 'paper'){
-            if(picked === 'rock'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
-            }
-            else if(picked === 'paper'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
-            }
-            else {
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
-            }
-        }
-        else if(compMovee === 'scissors'){
-            if(picked === 'rock'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
-            }
-            else if(picked === 'paper'){
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
-            }
-            else {
-                document.querySelector('.JResult').innerHTML =
-                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
-            }
-        }
+        document.querySelector('.JResult').innerHTML =
+            'Computer played ' + '<img src="images/' + compMovee + '-emoji.png">' + 'You played ' + '<img src="images/' + picked + '-emoji.png">' + result(picked, compMovee);
         localStorage.setItem('score', JSON.stringify(score));
     }
 
