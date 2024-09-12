@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
     <style>
+        body{
+            background-color: deepskyblue;
+        }
         div {
             display: flex;
             justify-content: space-around;
@@ -11,12 +14,21 @@
             margin-left: -20px;
             width: 1548px;
         }
-
-        button {
+        .header img{
+            border-radius: 1000px;
+            border: 5px solid white;
+            padding: 20px;
+        }
+        .reset{
+            width: 330px;
+        }
+        .header button {
             background-color: deepskyblue;
+            padding-top: 50px;
+            color: black;
             border: none;
             width: 800px;
-            height: 100px;
+            height: 400px;
             font-size: 20px;
             font-weight: bold;
             font-family: Arial, sans-serif;
@@ -36,29 +48,30 @@
             font-size: 30px;
             font-weight: bold;
             font-family: Arial, sans-serif;
-            padding-top: 10px;
             padding-bottom: 10px;
             background-color: deepskyblue;
+            align-items: center;
+        }
+        .JResult img{
+            margin-top: 20px;
         }
 
         button:hover {
             cursor: pointer;
-            background-color: #006480;
         }
 
     </style>
 </head>
 <body>
-<div>
-    <button onclick=" print('rock'); editS(); ">ROCK</button>
+<div class="header">
+    <button onclick=" print('rock'); editS(); "><img src="images/rock-emoji.png"></button>
 
-    <button onclick=" print('paper'); editS(); ">PAPER</button>
+    <button onclick=" print('paper'); editS(); "><img src="images/paper-emoji.png"></button>
 
-    <button onclick=" print('scissors'); editS(); ">SCISSORS</button>
+    <button onclick=" print('scissors'); editS(); "><img src="images/scissors-emoji.png"></button>
 
     <button onclick="score.wins = score.loses = score.ties = score.total = 0
-    localStorage.removeItem('score'); editS();">RESET SCORE
-    </button>
+    localStorage.removeItem('score'); editS();"><img class="reset" src="images/refresh.png"></button>
 </div>
 <div class="JScore">
 
@@ -96,7 +109,48 @@
 
     function print(picked) {
         let compMovee = compMove();
-        document.querySelector('.JResult').innerHTML = 'Computer played ' + compMovee + '. You played ' + picked + '. ' + result(picked, compMovee);
+        if(compMovee === 'rock'){
+            if(picked === 'rock'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
+            }
+            else if(picked === 'paper'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
+            }
+            else {
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/rock-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
+            }
+        }
+        else if(compMovee === 'paper'){
+            if(picked === 'rock'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
+            }
+            else if(picked === 'paper'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
+            }
+            else {
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/paper-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
+            }
+        }
+        else if(compMovee === 'scissors'){
+            if(picked === 'rock'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/rock-emoji.png">' + result(picked, compMovee);
+            }
+            else if(picked === 'paper'){
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/paper-emoji.png">' + result(picked, compMovee);
+            }
+            else {
+                document.querySelector('.JResult').innerHTML =
+                    'Computer played ' + '<img src="images/scissors-emoji.png">' + 'You played ' + '<img src="images/scissors-emoji.png">' + result(picked, compMovee);
+            }
+        }
         localStorage.setItem('score', JSON.stringify(score));
     }
 
