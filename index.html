@@ -56,7 +56,6 @@
             background-color: deepskyblue;
             align-items: center;
         }
-
         .JResult img {
             margin-top: 20px;
         }
@@ -69,15 +68,15 @@
 </head>
 <body>
 <div class="header">
-    <button onclick=" print('rock'); editS(); "><img src="images/rock-emoji.png"></button>
+    <button id="rock"><img src="images/rock-emoji.png"></button>
 
-    <button onclick=" print('paper'); editS(); "><img src="images/paper-emoji.png"></button>
+    <button id="paper"><img src="images/paper-emoji.png"></button>
 
-    <button onclick=" print('scissors'); editS(); "><img src="images/scissors-emoji.png"></button>
+    <button id="scissors"><img src="images/scissors-emoji.png"></button>
 
-    <button onclick="score.wins = score.loses = score.ties = score.total = 0
-    localStorage.removeItem('score'); editS();"><img class="reset" src="images/refresh.png"></button>
-    <button onclick="autoPlay();">AUTOPLAY</button>
+    <button id="reset"><img class="reset" src="images/refresh.png"></button>
+
+    <button id="auto">AUTOPLAY OFF</button>
 </div>
 <div class="JScore">
 
@@ -86,6 +85,56 @@
 
 </div>
 <script>
+    document.getElementById('rock').addEventListener('click',function (){
+        print('rock');
+        editS();
+    });
+    document.getElementById('paper').addEventListener('click',function (){
+        print('paper');
+        editS();
+    });
+    document.getElementById('scissors').addEventListener('click',function (){
+        print('scissors');
+        editS();
+    });
+    document.getElementById('reset').addEventListener('click',function (){
+        score.wins = score.loses = score.ties = score.total = 0
+        localStorage.removeItem('score'); editS();
+    });
+    const auto = document.getElementById('auto');
+    function changeAuto(){
+        if (auto.innerText === 'AUTOPLAY OFF') {
+            auto.innerText = 'AUTOPLAY ON';
+        } else {
+            auto.innerText = 'AUTOPLAY OFF';
+        }
+    }
+    auto.addEventListener('click', function () {
+        autoPlay();
+        changeAuto();
+    });
+    document.body.addEventListener('keydown',function (event){
+        if(event.key === 'r') {
+            print('rock');
+            editS();
+        }
+        else if(event.key === 'p'){
+            print('paper');
+            editS();
+        }
+        else if(event.key === 's'){
+            print('scissors');
+            editS();
+        }
+        else if(event.key === ' '){
+            score.wins = score.loses = score.ties = score.total = 0
+            localStorage.removeItem('score'); editS();
+        }
+        else if(event.key === 'a'){
+            autoPlay();
+            changeAuto();
+        }
+    });
     let id=0;
     let score = {
         wins: 0,
